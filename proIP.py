@@ -1,13 +1,12 @@
 import requests
 from github import Github
+import os
 
 # GitHub 配置
-GITHUB_TOKEN = "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"  # 替换为你的 Personal Access Token
-REPO_NAME = "kpsmail/new"  # 目标仓库
-OUTPUT_FILE_PATH = "IPV4.txt"  # 目标文件路径（在 GitHub 仓库中）
-BRANCH = "main"  # 目标分支
-
-# 源文件 URL
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # 从环境变量获取 Token
+REPO_NAME = "kpsmail/new"
+OUTPUT_FILE_PATH = "IPV4.txt"
+BRANCH = "main"
 SOURCE_URL = "https://raw.githubusercontent.com/ymyuuu/IPDB/refs/heads/main/BestProxy/proxy.txt"
 
 # 获取源文件内容
@@ -22,20 +21,16 @@ for ip in ip_list:
         formatted_lines.append(f"{ip}:8443#8443反代IP")
         formatted_lines.append(f"{ip}:2053#2053反代IP")
 
-# 将结果写入本地文件（可选，用于检查）
-with open("temp_output.txt", "w") as f:
-    f.write("\n".join(formatted_lines))
-
-# 使用 GitHub API 上传文件
+# 使用 GitHub API 更新文件
 g = Github(GITHUB_TOKEN)
 repo = g.get_repo(REPO_NAME)
 
-# 检查文件是否已存在，若存在则更新，否则创建
+# 检查文件是否存在，存在则更新，不存在则创建
 try:
     file = repo.get_contents(OUTPUT_FILE_PATH, ref=BRANCH)
     repo.update_file(
         OUTPUT_FILE_PATH,
-        "Update IPV4.txt with formatted IPs",
+        "Auto-update IPV4.txt with formatted IPs",
         "\n".join(formatted_lines),
         file.sha,
         branch=BRANCH
@@ -49,5 +44,3 @@ except:
         branch=BRANCH
     )
     print(f"文件 {OUTPUT_FILE_PATH} 已创建")
-
-print("任务完成！")
