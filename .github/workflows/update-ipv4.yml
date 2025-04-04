@@ -1,0 +1,38 @@
+name: Update IPV4.txt Every 4 Hours
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # 每 4 小时运行一次（UTC 时间）
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  update-ipv4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          pip install requests PyGithub
+
+      - name: Run Update Script
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          python proIP.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add IPV4.txt
+          git commit -m "Auto-update IPV4.txt with formatted IPs" || echo "No changes to commit"
+          git push
