@@ -26,9 +26,9 @@ try:
     formatted_lines = []
     for ip in ip_list:
         if ip:  # 跳过空行
-            formatted_lines.append(f"{ip}:443#443反代IP")
-            formatted_lines.append(f"{ip}:8443#8443反代IP")
-            formatted_lines.append(f"{ip}:2053#2053反代IP")
+            formatted_lines.append(f"{ip}:443")
+            formatted_lines.append(f"{ip}:8443")
+            formatted_lines.append(f"{ip}:2053")
     print(f"格式转换完成，生成了 {len(formatted_lines)} 行")
 
     # 使用 GitHub API 更新文件
