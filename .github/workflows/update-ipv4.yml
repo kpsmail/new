@@ -1,4 +1,4 @@
-name: Update IPV4.txt Every 4 Hours
+name: Update IPV4.txt Every Day
 
 on:
   schedule:
