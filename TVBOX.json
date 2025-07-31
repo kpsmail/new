@@ -192,8 +192,8 @@
     {
       "key": "aosikazy",
       "name": "奥斯卡资源18",
-      "type": 0,
-      "api": "https://aosikazy.com/api.php/provide/vod/at/xml/",
+      "type": 1,
+      "api": "https://aosikazy.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
