@@ -85,7 +85,7 @@
       "key": "1080y",
       "name": "🎬优质资源",
       "type": 1,
-      "api": "https://long.laoy88.dpdns.org/?url=https://api.yzzy-api.com/inc/apijson.php",
+      "api": "https://long.laoy88.dpdns.org/?url=https://api.yzzy-api.com/inc/apijson.php/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
